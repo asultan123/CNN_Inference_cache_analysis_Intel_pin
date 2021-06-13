@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "*.ph": "cpp",
-        "*.tlh": "cpp",
-        "ostream": "cpp",
-        "iostream": "cpp"
-    }
-}
