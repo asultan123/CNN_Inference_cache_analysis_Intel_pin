@@ -177,7 +177,8 @@ network has any effect on cache performance.
 
 ● Runtime for each network constrained to 30 seconds
 
-
+![Test1 Results LRU](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/image-001.jpg)
+![Test1 Results RR](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/image-002.jpg)
 
 #### Analysis
 Between networks there seems to be no significant difference in overall behavior at different
@@ -209,6 +210,8 @@ caches include being able to handle different operational speeds for variably si
 
 ● Runtime constrained to 30 seconds per configuration
 
+![Test2 Results](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/image-003.jpg)
+
 #### Analysis
 At lower cache sizes the hierarchical cache scheme provides good results for the overall area
 provided, example configuration 256 - 512 - 32. Performance rivals that of a full 1Kb cache (see
@@ -236,6 +239,8 @@ Associative cache vs a Set Associative Cache.
 ● Network (tiny darknet)
 
 ● Runtime constrained to 30 seconds per configuration
+
+![Test3 Results](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/image-004.jpg)
 
 #### Analysis
 Column associative caches performed well on low cache sizes but did not improve dramatically
@@ -265,6 +270,8 @@ the compiler because optimization level is set to Og)
 ● Network (tiny darknet)
 
 ● Runtime constrained to 30 seconds per configuration
+
+![Test4 Results](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/image-005.jpg)
 
 #### Analysis
 Prefetching had no advantage over non prefetching despite the instant servicing of the prefetch
