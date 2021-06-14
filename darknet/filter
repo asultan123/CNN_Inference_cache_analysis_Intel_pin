@@ -1,0 +1,3 @@
+#!/bin/sh
+
+pin -t ../pintools/source/tools/InstLibExamples/obj-intel64/filter.so -filter_rtn gemm_nn  -- ./darknet classify cfg/tiny.cfg tiny.weights data/dog.jpg;

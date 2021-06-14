@@ -1,0 +1,5 @@
+#!/bin/sh
+
+pin -t ../pintools/source/tools/Memory/obj-intel64/dcache.so -l1c 0.25 -l1b 1 -l1a 1  -l2c 0.5 -l2b 1 -l2a 1  -- ./darknet classify cfg/tiny.cfg tiny.weights data/dog.jpg;
+
+

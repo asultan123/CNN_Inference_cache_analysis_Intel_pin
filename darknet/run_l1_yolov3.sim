@@ -1,0 +1,19 @@
+#!/bin/sh
+
+
+# pin -t ../pintools/source/tools/Memory/obj-intel64/dcache.so -l1c 0.25 -l1b 2 -l1a 1  -- ./darknet classify proj_cfg/tiny.cfg proj_weights/tiny.weights data/dog.jpg;
+# pin -t ../pintools/source/tools/Memory/obj-intel64/dcache.so -l1c 0.25 -l1b 2 -l1a 1  -- ./darknet detect cfg/yolov3-tiny.cfg yolov3-tiny.weights data/dog.jpg;
+# pin -t ../pintools/source/tools/Memory/obj-intel64/dcache.so -l1c 0.25 -l1b 2 -l1a 1  -- ./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg
+
+for cacheSize in 0.25 0.50 1; do
+    for((blockSize=2;blockSize<=128;blockSize*=4));
+    do
+        for assoc in 1 4 8
+        do
+            timeout 30 pin -t ../pintools/source/tools/Memory/obj-intel64/dcache.so -l1c $cacheSize -l1b $blockSize -l1a $assoc  -- ./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg
+            hit=$(cat dcache.out | grep Total-Hit | grep -Po " +\K([0-9]+\.[0-9]+)");
+            echo -e "yolov3\t${cacheSize}\t${blockSize}\t${assoc}\tRR\t${hit}" >> ./sim_results/l1_sim
+
+        done
+    done
+done

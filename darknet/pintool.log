@@ -1,0 +1,4 @@
+Pin: pin-3.11-97998-7ecce2dac
+Copyright 2002-2019 Intel Corporation.
+A:  cache.H: SetAssociativity: 114: assertion failed: associativity == 1
+
