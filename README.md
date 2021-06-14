@@ -14,6 +14,7 @@ cache sizes, associativities, as well as replacement policies must be explored. 
 aim to explore different cache configurations as well as cache-centric code optimization
 techniques within the darknet convolutional neural network framework in order to determine
 what configurations/ techniques maximize reuse and reduce off chp traffic.
+
 ## Introduction
 With the explosion of convolutional neural networks in both data centers as well as the
 edge, efficient hardware accelerators for cnn inference have gained a lot of traction. One
@@ -27,7 +28,6 @@ consumption. To mitigate these negative effects a dedicated accelerator cache ma
 The optimum configuration for this hypothetical cache is evaluated. One thing must be noted
 though, the design of the cache as a process was done without considering a design for the
 accelerator. In effect, this design space exploration process for the cache is accelerator
-
 agnostic. The cache architectures explored where Column Associative caches, Hierarchical
 Caches, and Prefetching Caches. Within these major architectures cache sizes, block sizes,
 associativities, replacement policies were explored (when applicable).
@@ -157,35 +157,43 @@ A series of tests were run with different cache configurations. The configuratio
 each test is given as well as the networks run. Additionally, the goal of each test is given along
 with the analysis of the results
 
-Test 1: Network differentiator
+### Test 1: Network differentiator
 Goal
 The purpose of this test was to determine whether the architecture of a convolutional neural
 network has any effect on cache performance.
-Configuration
+#### Configuration
+
 ● No Hierarchy (just one cache)
+
 ● Varied Replacement policy (LRU, RR)
+
 ● Varied Block Size (8, 32, 128 bytes)
+
 ● Varied Cache Size (256, 512, 1024 bytes)
+
 ● Varied Associativity (1-way → 8-way)
+
 ● Varied Networks (tiny darknet, tiny yolo v3, yolov3)
 
 ● Runtime for each network constrained to 30 seconds
-Results
 
-Analysis
+
+
+#### Analysis
 Between networks there seems to be no significant difference in overall behavior at different
 cache configurations. Cach performance scales dramatically with cache block size regardless of
 the network as well as with cache size. If cache block size is too high the number of available
 sets becomes too low which increases capacity misses. This is apparent at cache block size
 128 with cache size 256.
-Test 2: Hierarchical Cache on tdark
+
+### Test 2: Hierarchical Cache on tdark
 Goal
 The purpose of this test was to determine whether there are any merits to using a hierarchical
 cache vs one monolithic cache. Hierarchical caches are useful if there is data sharing across
 multiple accelerators however in this case we only have one. Other advantages of hierarchical
 caches include being able to handle different operational speeds for variably sized caches.
 
-Configuration
+#### Configuration
 
 ● 2 data Caches L1 and L
 
@@ -201,46 +209,64 @@ Configuration
 
 ● Runtime constrained to 30 seconds per configuration
 
-Analysis
+#### Analysis
 At lower cache sizes the hierarchical cache scheme provides good results for the overall area
 provided, example configuration 256 - 512 - 32. Performance rivals that of a full 1Kb cache (see
 linked google sheets) at a reduced area cost. Hierarchical configurations are generally useful if
 multiple accelerators are sharing the available data. This is not the current case. In addition,
 hierarchical schemes require duplicate access logic which may complicate the overall design.
 
-Test 3: Column Associativity on tdark
+###Test 3: Column Associativity on tdark
 Goal
 The purpose of this test was to determine whether there are any merits to using a Column
 Associative cache vs a Set Associative Cache.
-Configuration
+
+#### Configuration
+
 ● 1 data Cache L
+
 ● COL Replacement policy
+
 ● Varied Block Size (8, 32, 128 bytes)
+
 ● Varied Cache Size (256, 512, 1024 bytes)
+
 ● Varied Associativity (1-way → 8-way)
+
 ● Network (tiny darknet)
+
 ● Runtime constrained to 30 seconds per configuration
-Analysis
+
+#### Analysis
 Column associative caches performed well on low cache sizes but did not improve dramatically
 over set associative caches with either LRU or RR replacement policies. Additionally, the rehash
 logic necessary may incur significant access delays. Column associative caches performed
 (overall) better than direct mapped caches but not better than set associative caches.
 
-Test 4: Prefetching on tdark
+### Test 4: Prefetching on tdark
 Goal
 The purpose of this test was to determine whether there are any merits to applying prefetching
 to gemm and whether there exists a particular prefetching scheme that improves cache
 performance. (No optimizations regarding automatic prefetching have been considered due to
 the compiler because optimization level is set to Og)
-Configuration
+
+#### Configuration
+
 ● 1 data Cache L
+
 ● RR Replacement policy
+
 ● Varied Block Size (8, 32, 128 bytes)
+
 ● Varied Cache Size (256, 512, 1024 bytes)
+
 ● Fixed Associativity (4-way)
+
 ● Network (tiny darknet)
+
 ● Runtime constrained to 30 seconds per configuration
-Analysis
+
+#### Analysis
 Prefetching had no advantage over non prefetching despite the instant servicing of the prefetch
 request. Additionally cache configuration size had no effect on prefetching effectiveness.
 
