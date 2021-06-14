@@ -129,24 +129,24 @@ The baseline dcache tool only provided data cache configuration for a single cac
 command line. Associative caches were available with only one replacement policy, Round
 Robin. The following features were added to allow for greater flexibility when evaluating optimal
 caches.
-● Hierarchy
-A second level cache was added (enabled via a compiler directive) to allow for cache
+
+● Hierarchy: A second level cache was added (enabled via a compiler directive) to allow for cache
 hierarchy to be explored
-● Support for small cache sizes
-Given that silicon real estate is heavily constrained in low power embedded devices,
+
+● Support for small cache sizes: Given that silicon real estate is heavily constrained in low power embedded devices,
 Small cache sizes needed to be supported (sizes less than 1kb)
-● Column associativity
-Column associativity was faithfully recreated from [3] (enabled via a compiler directive).
+
+● Column associativity: Column associativity was faithfully recreated from [3] (enabled via a compiler directive).
 The algorithm for column associative cache replacement is presented below. Functions
 b and f represent binary indexing and binary indexing with upper but flipping
 respectively. To prevent incorrect aliasing between addresses that only differ in their
 index bits (same tag) tag bits were extended by one bit
-● LRU
-LRU support was added in addition to Round Robin replacement. This was achieved
+
+● LRU: LRU support was added in addition to Round Robin replacement. This was achieved
 using staleness counters that tracked the staleness of cache lines in a set based on
 when they were last updated.
-● Prefetching detection
-Within x86 there already exists an assembly command that prefetches requested data
+
+● Prefetching detection: Within x86 there already exists an assembly command that prefetches requested data
 into the cache while allowing the programmer to state that cache line’s expected
 temporal locality. This instruction is accessible through
 
