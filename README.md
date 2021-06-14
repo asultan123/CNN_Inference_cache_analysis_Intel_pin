@@ -1,19 +1,19 @@
 
 # A Cache for convolutional neural network accelerators
-This repo contains a modified version of the dCache tool in Intel Pin version 3.13: https://software.intel.com/sites/landingpage/pintool/docs/98189/Pin/html/
+This repo contains a modified version of the dCache tool in Intel Pin version 3.11: https://software.intel.com/sites/landingpage/pintool/docs/97998/Pin/html/
 The results discussed in this readme involve the implications of different cache configurations on gemm based cnn accelerator access patterns. The tool offers several knobs controllable through scripts or runnable with predefined configurations in darknet/
 
 ## Usage
 ### To use this tool independently
-1) Download pin v3.13 from https://software.intel.com/content/www/us/en/develop/articles/pin-a-binary-instrumentation-tool-downloads.html
+1) Download pin >= v3.11 from https://software.intel.com/content/www/us/en/develop/articles/pin-a-binary-instrumentation-tool-downloads.html
 2) copy cache.H and dcache.cpp to pintools/source/tools/Memory/ 
 3) run make build
 4) modify make run to target required binary
 5) analysis output will be printed to stdout
 
 ### To use this tool with darknet
-1) Perform step 1-3 from independent usage instructions
-2) modify knobs used in darknet launch scripts in darknet/run_*
+1) run make build
+2) modify configuration knobs used in launch scripts in darknet/run_*.sim
 
 ## Motivation
 Studies have shown that one of the main hurdles to implementing convolutional neural networks on energy limited embedded systems is memory traffic to and from off-chip memory. One particular mathematical operation that dominates inference time
@@ -190,8 +190,8 @@ network has any effect on cache performance.
 
 ● Runtime for each network constrained to 30 seconds
 
-![Test1 Results LRU](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/image-001.jpg)
-![Test1 Results RR](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/image-002.jpg)
+![Test1 Results LRU](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/Results/image-001.jpg)
+![Test1 Results RR](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/Results/image-002.jpg)
 
 #### Analysis
 Between networks there seems to be no significant difference in overall behavior at different
@@ -223,7 +223,7 @@ caches include being able to handle different operational speeds for variably si
 
 ● Runtime constrained to 30 seconds per configuration
 
-![Test2 Results](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/image-003.jpg)
+![Test2 Results](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/Results/image-003.jpg)
 
 #### Analysis
 At lower cache sizes the hierarchical cache scheme provides good results for the overall area
@@ -253,7 +253,7 @@ Associative cache vs a Set Associative Cache.
 
 ● Runtime constrained to 30 seconds per configuration
 
-![Test3 Results](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/image-004.jpg)
+![Test3 Results](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/Results/image-004.jpg)
 
 #### Analysis
 Column associative caches performed well on low cache sizes but did not improve dramatically
@@ -284,7 +284,7 @@ the compiler because optimization level is set to Og)
 
 ● Runtime constrained to 30 seconds per configuration
 
-![Test4 Results](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/image-005.jpg)
+![Test4 Results](https://github.com/asultan123/CNN_Inference_cache_analysis_Intel_pin/blob/master/Results/image-005.jpg)
 
 #### Analysis
 Prefetching had no advantage over non prefetching despite the instant servicing of the prefetch
