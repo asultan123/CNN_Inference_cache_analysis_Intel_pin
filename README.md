@@ -1,6 +1,6 @@
 
 # A Cache for convolutional neural
-## Abstract
+## Motivation
 Studies have shown that one of the main hurdles to implementing convolutional neural networks on energy limited embedded systems is memory traffic to and from off-chip memory. One particular mathematical operation that dominates inference time
 within a CNN as well as cause significant data movement is the convolution operation.
 Generally CNNs implemented on embedded systems rely on heterogeneous computing facilities
@@ -14,8 +14,6 @@ cache sizes, associativities, as well as replacement policies must be explored. 
 aim to explore different cache configurations as well as cache-centric code optimization
 techniques within the darknet convolutional neural network framework in order to determine
 what configurations/ techniques maximize reuse and reduce off chp traffic.
-
-## Introduction
 With the explosion of convolutional neural networks in both data centers as well as the
 edge, efficient hardware accelerators for cnn inference have gained a lot of traction. One
 popular architecture in the literature for these accelerators is general matrix multipliers (gemm).
