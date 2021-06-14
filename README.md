@@ -13,7 +13,7 @@ The results discussed in this readme involve the implications of different cache
 
 ### To use this tool with darknet
 1) Perform step 1-3 from independent usage instructions
-2) modify knobs used in darknet launch scripts in darknet/ 
+2) modify knobs used in darknet launch scripts in darknet/run_*
 
 ## Motivation
 Studies have shown that one of the main hurdles to implementing convolutional neural networks on energy limited embedded systems is memory traffic to and from off-chip memory. One particular mathematical operation that dominates inference time
