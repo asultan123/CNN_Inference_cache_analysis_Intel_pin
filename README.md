@@ -1,5 +1,20 @@
 
-# A Cache for convolutional neural
+# A Cache for convolutional neural network accelerators
+This repo contains a modified version of the dCache tool in Intel Pin version 3.13: https://software.intel.com/sites/landingpage/pintool/docs/98189/Pin/html/
+The results discussed in this readme involve the implications of different cache configurations on gemm based cnn accelerator access patterns. The tool offers several knobs controllable through scripts or runnable with predefined configurations in darknet/
+
+## Usage
+### To use this tool independently
+1) Download pin v3.13 from https://software.intel.com/content/www/us/en/develop/articles/pin-a-binary-instrumentation-tool-downloads.html
+2) copy cache.H and dcache.cpp to pintools/source/tools/Memory/ 
+3) run make build
+4) modify make run to target required binary
+5) analysis output will be printed to stdout
+
+### To use this tool with darknet
+1) Perform step 1-3 from independent usage instructions
+2) modify knobs used in darknet launch scripts in darknet/ 
+
 ## Motivation
 Studies have shown that one of the main hurdles to implementing convolutional neural networks on energy limited embedded systems is memory traffic to and from off-chip memory. One particular mathematical operation that dominates inference time
 within a CNN as well as cause significant data movement is the convolution operation.
