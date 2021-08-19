@@ -232,7 +232,7 @@ linked google sheets) at a reduced area cost. Hierarchical configurations are ge
 multiple accelerators are sharing the available data. This is not the current case. In addition,
 hierarchical schemes require duplicate access logic which may complicate the overall design.
 
-###Test 3: Column Associativity on tdark
+### Test 3: Column Associativity on tdark
 Goal
 The purpose of this test was to determine whether there are any merits to using a Column
 Associative cache vs a Set Associative Cache.
